@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { join, resolve } = require("path");
+const { join, resolve, basename } = require("path");
 
 const Constants = require("./Constants");
 const reg = (a, c) => require("child_process").execFile("reg.exe", a, c);
@@ -8,21 +8,23 @@ const exec = process.execPath;
 const app = resolve(exec, "..");
 const root = resolve(app, "..");
 
-function updateShortcuts(updater) {
-  const fileName = `${Constants.APP_NAME_FOR_HUMANS}.lnk`;
-  const paths = [
-    join(updater.getKnownFolder("desktop"), fileName),
-    join(updater.getKnownFolder("programs"), Constants.APP_COMPANY, fileName)
+function updateShortcuts(u) {
+  const o = join(app, "app.ico")
+  const r = join(root, "app.ico")
+  const f = `${Constants.APP_NAME_FOR_HUMANS}.lnk`;
+  const P = [
+    join(u.getKnownFolder("desktop"), f),
+    join(u.getKnownFolder("programs"), Constants.APP_COMPANY, f)
   ];
-  if (!fs.existsSync(join(root, "app.ico"))) {
-    fs.copyFileSync(join(app, "app.ico"), join(root, "app.ico"));
+  if (!fs.existsSync(r)) {
+    fs.copyFileSync(o, r);
   }
-  for (const path of paths) {
-    updater.createShortcut({
+  for (const p of P) {
+    u.createShortcut({
       target_path: join(root, "Update.exe"),
-      shortcut_path: path,
-      arguments: `--processStart ${exeName}`,
-      icon_path: join(root, "app.ico"),
+      shortcut_path: p,
+      arguments: `--processStart ${basename(exec)}`,
+      icon_path: r,
       icon_index: 0,
       description: Constants.APP_DESCRIPTION,
       app_user_model_id: Constants.APP_ID,
