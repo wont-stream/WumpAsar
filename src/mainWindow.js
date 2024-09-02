@@ -32,7 +32,7 @@ setInterval(() => {
 
   const oaVersion = host.cloneNode(true);
   oaVersion.id = 'openasar-ver';
-  oaVersion.textContent = 'OpenAsar <channel> ';
+  oaVersion.textContent = 'WumpAsar <channel> ';
   oaVersion.onclick = () => DiscordNative.ipc.send('DISCORD_UPDATED_QUOTES', 'o');
 
   const oaHash = document.querySelector('[class*="versionHash"]').cloneNode(true);
@@ -67,9 +67,9 @@ setInterval(() => {
   }
   
   const oaSetting = advanced.cloneNode(true);
-  oaSetting.setAttribute('data-tab-id', 'OpenAsar'); // we need to change what we clone so the data is not misleading
-  oaSetting.setAttribute('aria-label', 'OpenAsar'); // we need to change what we clone so the data is not misleading
-  oaSetting.textContent = 'OpenAsar';
+  oaSetting.setAttribute('data-tab-id', 'WumpAsar'); // we need to change what we clone so the data is not misleading
+  oaSetting.setAttribute('aria-label', 'WumpAsar'); // we need to change what we clone so the data is not misleading
+  oaSetting.textContent = 'WumpAsar';
   oaSetting.id = 'openasar-item';
   oaSetting.onclick = oaVersion.onclick;
 
