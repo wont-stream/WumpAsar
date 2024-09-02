@@ -8,7 +8,7 @@ const exec = process.execPath;
 const app = resolve(exec, "..");
 const root = resolve(app, "..");
 
-function updateShortcuts(u) {
+function uSc(u) {
   const o = join(app, "app.ico")
   const r = join(root, "app.ico")
   const f = `${Constants.APP_NAME_FOR_HUMANS}.lnk`;
@@ -33,7 +33,7 @@ function updateShortcuts(u) {
   }
 }
 
-exports.do = (updater) => {
+exports.do = (u) => {
   const flag = join(app, ".first-run");
   if (fs.existsSync(flag)) return; // Already done, skip
 
@@ -48,7 +48,7 @@ exports.do = (updater) => {
   ])
     reg(["add", ...x, "/f"], (e) => {});
 
-  updateShortcuts(updater);
+    uSc(u);
 
   try {
     fs.writeFileSync(flag, "");
