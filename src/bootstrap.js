@@ -94,7 +94,7 @@ const startUpdate = () => {
     inst.on('InconsistentInstallerState', fatal);
     inst.on('update-error', console.error);
 
-    require('./winFirst').do();
+    require('./winFirst').do(inst);
   } else {
     moduleUpdater.init(Constants.UPDATE_ENDPOINT, buildInfo);
   }
