@@ -1,6 +1,7 @@
 const { app, session } = require('electron');
-const { readFileSync } = require('fs');
+const { readFileSync, existsSync, renameSync } = require('fs');
 const { join } = require('path');
+const paths = require('./paths')
 
 if (!settings.get('enableHardwareAcceleration', true)) app.disableHardwareAcceleration();
 process.env.PULSE_LATENCY_MSEC = process.env.PULSE_LATENCY_MSEC ?? 30;
@@ -61,7 +62,7 @@ const startCore = () => {
 
     // Just requires
     appSettings: require('./appSettings'),
-    paths: require('./paths'),
+    paths: paths,
 
     // Stubs
     GPUSettings: {
@@ -76,6 +77,13 @@ const startCore = () => {
 };
 
 const startUpdate = () => {
+  exeDirInstallerSeed = join(paths.getExeDir, "installer.db")
+
+  // Move installer.db
+  if (existsSync(exeDirInstallerSeed)) {
+    renameSync(exeDirInstallerSeed, join(paths.getInstallPath, "installer.db"))
+  }
+
   const urls = [
     oaConfig.noTrack !== false ? 'https://*/api/*/science' : '',
     oaConfig.noTrack !== false ? 'https://*/api/*/metrics' : '',
