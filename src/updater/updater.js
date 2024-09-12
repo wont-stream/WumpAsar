@@ -15,7 +15,7 @@ const TASK_STATE_WORKING = 'Working';
 // discord made breaking changes without any api versioning wow!!
 // so we have to read the node module to determine the version
 let updaterVersion = 1;
-const updaterPath = paths.getExeDir() + '/updater.node';
+const updaterPath = join(paths.getExeDir(), 'updater');
 
 class Updater extends require('events').EventEmitter {
   constructor(options) {
