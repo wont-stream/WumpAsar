@@ -1,5 +1,5 @@
 {
-  "name": "Discord",
-  "description": "Open-source alternative of Discord desktop's app.asar",
-  "main": "index.js"
+	"name": "Discord",
+	"description": "Open-source alternative of Discord desktop's app.asar",
+	"main": "index.js"
 }
